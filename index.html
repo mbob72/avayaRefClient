@@ -20,19 +20,19 @@ Avaya – Confidential & Proprietary. Use pursuant to your signed agreement or A
      <script>
          if(!localStorage['client.platform']) localStorage['client.platform'] = 'ELITE';
          if(!localStorage['elite.token.config']) localStorage['elite.token.config'] = JSON.stringify({
-             port: "443"
-             secure: true
-             tokenServiceAddress: "sbc-pr-b.vtb.ru"
+             port: "443",
+             secure: true,
+             tokenServiceAddress: "sbc-pr-b.vtb.ru",
              urlPath: "token-generation-service/token/getEncryptedToken"
          })
          if(!localStorage['elite.aawg.config']) localStorage['elite.aawg.config'] = JSON.stringify({
-             port: "443"
-             secure: true
+             port: "443",
+             secure: true,
              webGatewayAddress: "sbc-pr-b.vtb.ru"
          })
          if(!localStorage['elite.optional']) localStorage['elite.optional'] = JSON.stringify({
-             context: ""
-             destinationAddress: "07590"
+             context: "",
+             destinationAddress: "07590",
              topic: ""
          })
 
