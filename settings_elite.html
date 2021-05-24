@@ -1,0 +1,273 @@
+<!--
+Copyright Avaya Inc.
+All rights reserved. Usage of this source is bound to the terms described in
+the file Avaya SDK EULA.pdf, included in this SDK.
+Avaya – Confidential & Proprietary. Use pursuant to your signed agreement or Avaya Policy.
+-->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- 3rd party webapp dependencies -->
+    <link rel="stylesheet" href="lib/material_icons/icon.css">
+    <link rel="stylesheet" href="lib/mdl/material.min.css">
+    <link rel="stylesheet" href="app/css/main_style.css">
+    <script src="lib/mdl/material.min.js"></script>
+    <script src="lib/jquery-ui/external/jquery/jquery.js"></script>
+    <link type="text/css" rel="stylesheet" href="lib/jsgrid/jsgrid.min.css" />
+    <link type="text/css" rel="stylesheet" href="lib/jsgrid/jsgrid-theme.min.css" />
+    <script type="text/javascript" src="lib/jsgrid/jsgrid.min.js"></script>
+
+    <!-- Include WebRTC reference implementation, note pubsub.js is used by some of the later javascript files,
+    so it must be loaded first -->
+    <script src="app/webrtc/common/pubsub.js"></script>
+    <script src="app/webrtc/common/setup.js"></script>
+
+    <!-- Include the Oceana Customer Services SDK -->
+    <script src="lib/oceana/OceanaCustomerWebVoiceVideo.js"></script>
+        <!-- configuration Files -->
+    <script src="configuration/MessagesConfig.js"></script>
+    <!-- Ocenana reference client dependencies -->
+    <link rel="stylesheet" href="app/css/main_style.css">
+    <script src="app/js/utils.js"></script>
+    <script src="app/js/settingsellite.js"></script>
+    <script src="app/js/ui.js"></script>
+
+    <title></title>
+
+    <script>
+        $(function () {
+            // if(utils.isSecure()) {
+            ui.setupSettings();
+            settingsElite.load();
+            // }
+        });
+    </script>
+</head>
+
+<body>
+
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+            <div class="avaya-header mdl-layout__header mdl-layout__header">
+                <div class="mdl-layout__header-row">
+                    <span class="avaya-title mdl-layout-title">
+                        <img class="avaya-logo-image" src="app/images/avaya_red_logo.png">
+                    </span>
+                    <div class="avaya-header-spacer mdl-layout-spacer"></div>
+                    <span class="avaya-mobile-title mdl-layout-title">
+                        <img class="avaya-logo-image" src="app/images/avaya_red_logo.png">
+                    </span>
+
+                    <a id="app-menu" class="close_button">
+                        <span class="webrtc-white">
+                            <i class="material-icons">more_vert</i>
+                        </span>
+                    </a>
+                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="app-menu">
+                        <li id="home_menu_item" class="mdl-menu__item"></li>
+                        <li id="clientVersion" class="mdl-menu__item"></li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+            <!-- Main Content -->
+            <div class="avaya-content mdl-layout__content">
+                <div class="avaya-settings">
+                    <div class="mdl-tabs mdl-js-tabs">
+                        <div class="mdl-tabs__tab-bar">
+                            <a href="#client-config-panel" id="id_client_config" class="mdl-tabs__tab is-active"></a>
+                            <a href="#services-panel" class="mdl-tabs__tab" id="id_service" ></a>
+                            <a href="#resource-panel" class="mdl-tabs__tab" id="id_resource" ></a>
+                            <a href="#aawg-config-panel" class="mdl-tabs__tab" id="id_aawg_config" ></a>
+                            <a href="#token-config-panel" class="mdl-tabs__tab" id="id_token_config" ></a>
+                        </div>
+
+                        <div class="mdl-tabs__panel is-active" id="client-config-panel">
+                            <div class="config-form__wrapper">
+                                <form class="config-form" action="#">
+
+                                    <div class="tf-block mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" id="displayNameTf">
+                                        <label class="mdl-textfield__label" id="id_display_name" for="displayNameTf"></label>
+                                    </div>
+                                    <div class="tf-block mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="fromTf">
+                                        <label class="mdl-textfield__label" id="id_from_address" for="fromTf"></label>
+                                        <span class="mdl-textfield__error" id="id_not_number" ></span>
+                                    </div>
+                                    <div class="tf-block mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="destinationTf">
+                                        <label class="mdl-textfield__label" id="id_destination_address" for="destinationTf"></label>
+                                        <span class="mdl-textfield__error"  id="id_not_number" ></span>
+                                    </div>
+                                    <div class="tf-block mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" id="contextTf">
+                                        <label class="mdl-textfield__label" id="id_context" for="contextTf"></label>
+                                    </div>
+                                    <div class="tf-block mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" id="topicTf">
+                                        <label class="mdl-textfield__label" id="id_topic" for="topicTf"></label>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="mdl-tabs__panel" id="aawg-config-panel">
+                            <div class="config-form__wrapper">
+                                <form class="config-form" action="#">
+                                    <div class="tf-block mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" id="aawgServerTf">
+                                        <label class="mdl-textfield__label" id="id_aawg_server_address" for="aawgServerTf"></label>
+                                    </div>
+                                    <div class="tf-block mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="aawgPortTf">
+                                        <label class="mdl-textfield__label" id="id_aawg_server_port" for="aawgPortTf"></label>
+                                    </div>
+                                    <div class="tf-block mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" checked="checked" type="checkbox" id="aawgSecureCb">
+                                        <label class="mdl-textfield__label" id="id_use_https_aawg" for="aawgSecureCb"></label>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="mdl-tabs__panel" id="token-config-panel">
+                            <div class="config-form__wrapper">
+                                <form class="config-form" action="#">
+                                    <div class="tf-block mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" id="tokenServerTf">
+                                        <label class="mdl-textfield__label" id="id_token_server_address" for="tokenServerTf"></label>
+                                    </div>
+                                    <div class="tf-block mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="tokenPortTf">
+                                        <label class="mdl-textfield__label" id="id_token_server_port" for="tokenPortTf"></label>
+                                    </div>
+                                    <div class="tf-block mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" checked="checked" type="checkbox" id="tokenSecureCb">
+                                        <label class="mdl-textfield__label" id="id_use_https_token" for="tokenSecureCb"></label>
+                                    </div>
+                                    <div class="tf-block mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" id="tokenUrlPathTf">
+                                        <label class="mdl-textfield__label" id="id_token_service_url" for="tokenUrlPathTf"></label>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="mdl-tabs__panel" id="services-panel">
+                            <div class="config-form__wrapper">
+                                <form class="config-form" action="#">
+                                    <div class="tf-block mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" pattern="[1-9]|10" value="5" id="priorityTf">
+                                        <label class="mdl-textfield__label" id="id_priority" for="priorityTf"></label>
+                                        <span class="mdl-textfield__error" id="id_number_between_1_10" ></span>
+                                    </div>
+                                    <div class="tf-block mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" value="en_us" id="localeTf">
+                                        <label class="mdl-textfield__label" id="id_locale" for="localeTf"></label>
+                                    </div>
+                                    <div class="tf-block mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <select class="mdl-textfield__input" id="strategyTf" name="Strategy">
+                                            <option selected id="id_most_idle" value="MOST_IDLE"></option>
+                                            <option id="id_least_occupied" value="LEAST_OCCUPIED"></option>
+                                        </select>
+                                        <label class="mdl-textfield__label" id="id_strategy" for="strategyTf"></label>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="mdl-tabs__panel" id="resource-panel">
+                            <div class="config-form__wrapper">
+                                <form class="config-form" action="#">
+                                    <div class="tf-block mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" id="sourceNameTf">
+                                        <label class="mdl-textfield__label" id="id_source_name" for="sourceNameTf"></label>
+                                    </div>
+                                    <div class="tf-block mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" id="nativeResourceIdTf">
+                                        <label class="mdl-textfield__label" id="id_resource_id" for="nativeResourceIdTf"></label>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div id="wrapper" style="text-align: center">
+                            <div class="settingsButtons" style="display: inline-block;">
+                                <button type="button" id="settingsCancelBtn" id="id_cancel" class="mdl-button settings-btn  mdl-button--raised"></button>
+                                <button type="button" id="settingsSaveBtn" id="id_save" class="mdl-button settings-btn save-btn  mdl-button--raised"></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Notification bar -->
+                <div id="client-toast" class="mdl-js-snackbar mdl-snackbar">
+                    <div class="mdl-snackbar__text"></div>
+                    <button class="mdl-snackbar__action" type="button"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- The following script has been added for fixing the Firefox material design text field not updating issue -->
+    <script>
+        function checkInputHasValue() {
+            $('input.mdl-textfield__input').each(function (index) {
+                if ($(this).get(0).offsetParent && $(this).get(0).offsetParent.MaterialTextfield) {
+                    $(this).get(0).offsetParent.MaterialTextfield.checkDirty();
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            checkInputHasValue();
+            $(".mdl-tabs__tab").click(function () {
+                checkInputHasValue();
+            });
+            document.title = messageConfig.AvayaEliteWebRTCSettings;
+            $("#home_menu_item").text(messageConfig.Home);
+            $("#id_client_config").text(messageConfig.client_config); 
+            $("#id_service").text(messageConfig.service); 
+            $("#id_resource").text(messageConfig.resource); 
+            $("#id_aawg_config").text(messageConfig.aawg_config); 
+            $("#id_token_config").text(messageConfig.token_config);             
+            $("#id_display_name").text(messageConfig.display_name); 
+            $("#id_aawg_server_address").text(messageConfig.aawg_server_address); 
+            $("#id_from_address").text(messageConfig.from_address); 
+            $("#id_not_number").text(messageConfig.not_number); 
+            $("#id_destination_address").text(messageConfig.destination_address); 
+            $("#id_context").text(messageConfig.context); 
+            $("#id_topic").text(messageConfig.topic); 
+            $("#id_aawg_server_address").text(messageConfig.aawg_server_address); 
+            $("#id_aawg_server_port").text(messageConfig.aawg_server_port); 
+            $("#id_use_https_aawg").text(messageConfig.use_https); 
+            $("#id_use_https_token").text(messageConfig.use_https); 
+            $("#id_token_server_address").text(messageConfig.token_server_address); 
+            $("#id_token_server_port").text(messageConfig.token_server_port); 
+            $("#id_token_service_url").text(messageConfig.token_service_url); 
+            $("#id_priority").text(messageConfig.priority); 
+            $("#id_number_between_1_10").text(messageConfig.number_between_1_10); 
+            $("#id_locale").text(messageConfig.locale); 
+            $("#id_most_idle").text(messageConfig.most_idle); 
+            $("#id_least_occupied").text(messageConfig.least_occupied); 
+            $("#id_strategy").text(messageConfig.strategy); 
+            $("#id_source_name").text(messageConfig.source_name); 
+            $("#id_resource_id").text(messageConfig.resource_id); 
+            $("#settingsCancelBtn").text(messageConfig.cancel); 
+            $("#settingsSaveBtn").text(messageConfig.save); 
+
+
+            
+        });
+    </script>
+</body>
+
+</html>

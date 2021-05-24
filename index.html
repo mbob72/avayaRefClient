@@ -1,0 +1,318 @@
+<!--
+Copyright Avaya Inc.
+All rights reserved. Usage of this source is bound to the terms described in
+the file Avaya SDK EULA.pdf, included in this SDK.
+Avaya – Confidential & Proprietary. Use pursuant to your signed agreement or Avaya Policy.
+-->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- 3rd party dependencies -->
+    <link rel="stylesheet" href="lib/material_icons/icon.css">
+    <link rel="stylesheet" href="lib/mdl/material.min.css">
+    <script src="lib/mdl/material.min.js"></script>
+    <script src="lib/jquery-ui/external/jquery/jquery.js"></script>
+    <script src="lib/jquery-ui/jquery-ui.min.js"></script>
+
+    <!-- Include WebRTC reference implementation, note pubsub.js is used by some of the later javascript files,
+    so it must be loaded first -->
+    <script src="app/webrtc/common/pubsub.js"></script>
+    <script src="app/webrtc/common/auth.js"></script>
+    <script src="app/webrtc/common/core.js"></script>
+    <script src="app/webrtc/common/setup.js"></script>
+
+    <!-- Include the Oceana Customer Services SDK -->
+    <script src="lib/oceana/OceanaCustomerWebVoiceVideo.js"></script>
+    <!-- configuration Files -->
+    <script src="configuration/MessagesConfig.js"></script>
+
+    <!-- Ocenana reference client dependencies -->
+    <link rel="stylesheet" href="app/css/main_style.css">
+    <script src="app/js/utils.js"></script>
+    <script src="app/js/settings.js"></script>
+    <script src="app/js/settingsellite.js"></script>
+    <script src="app/js/ui.js"></script>
+    <script>
+        $(function () {
+            if (utils.checkIfBrowserIsSupport()) {
+                // TODO fix this, this was temporaily disabled to test locally
+                // if(utils.isSecure()) {
+                ui.setupVoice();
+                ui.setupVideo();
+                // }
+            } else {
+                ui.updateConnectionState('Browser not supported');
+            }
+        });
+    </script>
+    <title>Avaya Oceana&trade; Video</title>
+</head>
+
+<body>
+    <!-- WebRTC template container: the contents of the voice or video caller UI will be injected here -->
+    <div id="replaceAsVideoWebRTCCaller"></div>
+    <div id="replaceAsVoiceWebRTCCaller"></div>
+
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+        <div class="avaya-header mdl-layout__header mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <span class="avaya-title mdl-layout-title">
+                    <img class="avaya-logo-image" src="app/images/avaya_red_logo.png">
+                </span>
+                <div class="avaya-header-spacer mdl-layout-spacer"></div>
+                <span class="avaya-mobile-title mdl-layout-title">
+                    <img class="avaya-logo-image" src="app/images/avaya_red_logo.png">
+                </span>
+                <span class="client-status">
+                    <h6 class="client-state"></h6>
+                </span>
+                <a id="app-menu" class="close_button">
+                    <span class="webrtc-white webrtc_voicebutton">
+                        <i class="material-icons">more_vert</i>
+                    </span>
+                </a>
+
+                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="app-menu">
+                    <li id="settings_menu_item" class="mdl-menu__item"></li>
+                    <li id="clientVersion" class="mdl-menu__item"></li>
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- Main Content -->
+        <div class="avaya-content mdl-layout__content">
+            <div id="mainArea" class="avaya-be-together-section mdl-typography--text-center">
+                <div id="reference_client_title" class="logo-font avaya-slogan"></div>
+
+                <div class="avaya-video-resolution-area" id="videoResolution">
+                    <label for="videoResolutionSpinner" class="resolution-field"></label><br />
+                    <select id="videoResolutionSpinner"></select>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Notification bar -->
+        <div id="client-toast" class="mdl-js-snackbar mdl-snackbar">
+            <div class="mdl-snackbar__text"></div>
+            <button class="mdl-snackbar__action" type="button"></button>
+        </div>
+    </div>
+
+
+    <div id="modalPlatformChooser" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content-chooser">
+            <div class="mdl-dialog__content custom-dialog-content">
+                <!-- List items with avatar and action -->
+
+                <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+                    <header>
+
+                        <span class="dialog-title" id="idPlatformChoose"></span>
+                        <span id="close_button_platform_chooser" class="close_button">
+                            <i class="material-icons">close</i>
+                        </span>
+
+                    </header>
+                    <main class="mdl-layout__content">
+                        <div id="optionOceana" class="mdc-form-field modal-radio-label">
+                            <div class="mdc-radio">
+                                <input class="mdc-radio__native-control" type="radio" id="radio-oceana"
+                                    name="radioPlatform" value="1">
+                                <label for="radio-oceana" id="idOceanaRadio"></label>
+                                <div class="mdc-radio__background">
+                                    <div class="mdc-radio__outer-circle"></div>
+                                    <div class="mdc-radio__inner-circle"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="mdc-form-field modal-radio-label">
+                            <div id="optionElite" class="mdc-radio">
+                                <input class="mdc-radio__native-control" type="radio" id="radio-elite"
+                                    name="radioPlatform" value="2">
+                                <label for="radio-elite" id="idEliteRadio"></label>
+                                <div class="mdc-radio__background">
+                                    <div class="mdc-radio__outer-circle"></div>
+                                    <div class="mdc-radio__inner-circle"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </main>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div id="modalStats" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="mdl-dialog__content custom-dialog-content">
+                <!-- List items with avatar and action -->
+
+                <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+                    <header class="stats-dialog-header">
+
+                        <span class="dialog-title" id="idCallStatistics"></span>
+                        <span id="close_button">
+                            <i class="material-icons">close</i>
+                        </span>
+
+                    </header>
+                    <main class="mdl-layout__content">
+                        <div class="mdl-tabs mdl-js-tabs">
+                            <div id="tabs" class="mdl-tabs__tab-bar">
+                                <a id="audioStatsTab" href="#tab1-panel" class="mdl-tabs__tab is-active"></a>
+                                <a id="videoStatsTab" href="#tab2-panel" class="mdl-tabs__tab"></a>
+                            </div>
+
+                            <div class="mdl-tabs__panel is-active" id="tab1-panel">
+                                <div class="demo-list-action mdl-list">
+
+                                    <div class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                            <span id="idPacketsSentReceivedKey" class="stat-key"></span>
+                                        </span>
+                                        <span class="mdl-list__item-secondary-content">
+                                            <span id="idPacketsSentReceivedValue" class="stat-values"></span>
+                                        </span>
+                                    </div>
+                                    <div class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                            <span id="idBytesSentReceivedKey" class="stat-key"></span>
+                                        </span>
+                                        <span class="mdl-list__item-secondary-content">
+                                            <span id="idBytesSentReceivedValue" class="stat-values"></span>
+                                        </span>
+                                    </div>
+                                    <div class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                            <span id="idLossLocalRemoteKey" class="stat-key">
+                                                <!--  Local / --></span>
+                                        </span>
+                                        <span class="mdl-list__item-secondary-content">
+                                            <span id="idLossLocalRemoteValue" class="stat-values"></span>
+                                        </span>
+                                    </div>
+                                    <div class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                            <span id="idJitterLocalRemoteKey" class="stat-key">
+                                                <!--  Local / --></span>
+                                        </span>
+                                        <span class="mdl-list__item-secondary-content">
+                                            <span id="idJitterLocalRemoteValue" class="stat-values"></span>
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="mdl-tabs__panel" id="tab2-panel">
+                                <div class="demo-list-action mdl-list">
+                                    <div class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                            <span id="idHeaderReceive" class="stat-header"></span>
+                                        </span>
+                                    </div>
+                                    <div class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                            <span id="idBytesReceive" class="stat-key"></span>
+                                        </span>
+                                        <span class="mdl-list__item-secondary-content">
+                                            <span id="idBytesReceiveValue" class="stat-values"></span>
+                                        </span>
+                                    </div>
+                                    <div class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                            <span id="idPacketsReceive" class="stat-key"></span>
+                                        </span>
+                                        <span class="mdl-list__item-secondary-content">
+                                            <span id="idPacketsReceiveValue" class="stat-values"></span>
+                                        </span>
+                                    </div>
+                                    <div class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                            <span id="idPacketsLostReceiveKey" class="stat-key"></span>
+                                        </span>
+                                        <span class="mdl-list__item-secondary-content">
+                                            <span id="idPacketsLostReceiveValue" class="stat-values"></span>
+                                        </span>
+                                    </div>
+
+                                    <div class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                            <span id="idHeaderSend" class="stat-header"></span>
+                                        </span>
+                                    </div>
+                                    <div class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                            <span id="idBytesSend" class="stat-key"></span>
+                                        </span>
+                                        <span class="mdl-list__item-secondary-content">
+                                            <span id="idBytesSendValue" class="stat-values"></span>
+                                        </span>
+                                    </div>
+                                    <div class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                            <span id="idPacketsSend" class="stat-key"></span>
+                                        </span>
+                                        <span class="mdl-list__item-secondary-content">
+                                            <span id="idPacketsSendValue" class="stat-values"></span>
+                                        </span>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- expandable fab -->
+    <div id="clickToCall"
+        class="click-to-call-btn mdl-fab-bottom-right mdl-button--fab-expandable bottom right mdl-fab-expandable--snack">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+            <i class="material-icons">add</i>
+        </button>
+        <div class="mdl-fab-expandable--children">
+            <div class="mdl-fab-expandable--child">
+                <button id="voiceClickToCall"
+                    class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored">
+                    <i class="material-icons">phone</i>
+                </button>
+                <div class="mdl-fab-expandable--child-label"><label id="idFabAudio"></label></div>
+            </div>
+            <div class="mdl-fab-expandable--child">
+                <button id="videoClickToCall"
+                    class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored">
+                    <i class="material-icons">videocam</i>
+                </button>
+                <div class="mdl-fab-expandable--child-label"><label id="idFabVideo"></label></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

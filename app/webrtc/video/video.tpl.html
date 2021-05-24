@@ -1,0 +1,101 @@
+<!--
+Copyright Avaya Inc.
+All rights reserved. Usage of this source is bound to the terms described in
+the file Avaya SDK EULA.pdf, included in this SDK.
+Avaya – Confidential & Proprietary. Use pursuant to your signed agreement or Avaya Policy.
+-->
+<div id="webrtc_video_container" class="webrtc_float">
+    <div id="webrtc_draggable_video" class="ui-widget-content">
+
+        <div class="webrtc_caller">
+            <!-- HEADER -->
+            <div id="webrtc_header">
+                <div class="webrtc_header-content">
+                    <span id="webrtc_video_status"></span>
+                    <span id="webrtc_call_quality">
+                      <img id="img_callQuality" src="app/images/ic_networkquality_5.png">
+                    </span>
+                    <span id="webrtc_video_duration"></span>
+                </div>
+            </div>
+            <!--/ HEADER -->
+
+            <!-- CONTENT: VIDEO VIEWS -->
+            <div class="webrtc_video">
+                <div class="webrtc_secondimg videoOutbound" id="videoOutbound" onloadstart="this.muted = true;" autoplay muted></div>
+                <div class="webrtc_mainimg videoInbound" id="videoInbound" onloadstart="this.muted = true;" autoplay muted ></div> 
+                <!-- autoplay muted onloadstart="this.muted = true;" -->
+                <div class="webrtc_avayaWaterMark">
+                    <img class="webrtc_avayaWaterMarkImg" src="app/webrtc/images/avaya-logo-white.png" />
+                </div>
+            </div>
+            <!--/ CONTENT: VIDEO VIEWS -->
+
+            <!-- FOOTER -->
+            <div id="webrtc_footer">
+                <div class="webrtc_footer-content">
+
+
+                    <a class="webrtc_videobutton">
+                        <span id="webrtc_video_dtmf" class="webrtc_footer-icon webrtc-white">
+                            <img id="dtmf_videocall" src="app/images/ic_activecall_dtmf.png">
+                        </span>
+                    </a>
+                    <div class="dtmf-wrapper-video">
+                        <ul class="dtmf-interface">
+                            <li name="dtmfKey" id="vi1" key="1"></li>
+                            <li name="dtmfKey" id="vi2" key="2"></li>
+                            <li name="dtmfKey" id="vi3" key="3"></li>
+                            <li name="dtmfKey" id="vi4" key="4"></li>
+                            <li name="dtmfKey" id="vi5" key="5"></li>
+                            <li name="dtmfKey" id="vi6" key="6"></li>
+                            <li name="dtmfKey" id="vi7" key="7"></li>
+                            <li name="dtmfKey" id="vi8" key="8"></li>
+                            <li name="dtmfKey" id="vi9" key="9"></li>
+                            <li name="dtmfKey" id="vi10" key="10"></li>
+                            <li name="dtmfKey" id="vi0" key="0"></li>
+                            <li name="dtmfKey" id="vi11" key="11"></li>
+                        </ul>
+                    </div>
+                    <a class="webrtc_videobutton">
+                        <span id="webrtc_video_muteAudio">
+                            <img id="mic_videocall" src="app/images/ic_activecall_mute.png">
+                        </span>
+                    </a>
+                    <a class="webrtc_videobutton">
+                        <span id="webrtc_video_muteVideo" class="webrtc_footer-icon webrtc-white">
+                            <img id="muteUnmuteVideo" src="app/images/ic_activecall_video_active.png">
+                        </span>
+                    </a>
+                    <a class="webrtc_videobutton">
+                        <span id="webrtc_video_enableVideo" class="webrtc_footer-icon webrtc-white">
+                            <img id="enableDisableVideo" src="app/images/ic_videocall_selfview_blockcamera.png">
+                        </span>
+                    </a>
+                    <a class="webrtc_videobutton">
+                        <span id="webrtc_video_holdCall" class="webrtc_footer-icon webrtc-white">
+                            <img id="hold_videocall" src="app/images/ic_activecall_advctrl_hold.png">
+                        </span>
+                    </a>
+                    <a class="webrtc_videobutton">
+                        <span id="webrtc_video_end" class="webrtc_footer-icon webrtc-red">
+                            <img id="endCall" src="app/images/ic_activecall_hangup.png">
+                        </span>
+                    </a>
+                    <a id="video-menu-lower-left" class="webrtc_videobutton">
+                        <span class="webrtc_footer-icon webrtc-white">
+                            <i class="material-icons">more_vert</i>
+                        </span>
+                    </a>
+
+                    <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+                        for="video-menu-lower-left">
+                        <li id="call_statistics_video" class="mdl-menu__item"></li>
+                    </ul>
+                </div>
+            </div>
+            <!--/ FOOTER -->
+        </div>
+
+    </div>
+</div>

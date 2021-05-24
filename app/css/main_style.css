@@ -1,0 +1,772 @@
+/*
+Copyright Avaya Inc.
+All rights reserved. Usage of this source is bound to the terms described in
+the file Avaya SDK EULA.pdf, included in this SDK.
+Avaya – Confidential & Proprietary. Use pursuant to your signed agreement or Avaya Policy.
+*/
+
+:root {
+    --avaya-blue: #3C5064;
+    --avaya-darkblue: #293b47;
+    --avaya-gradient: linear-gradient(to bottom, var(--avaya-blue), var(--avaya-blue));
+
+}
+
+body {
+    margin: 0;
+    background-color: var(--avaya-blue);
+    background: var(--avaya-gradient);
+}
+
+/* Disable ugly boxes around images in IE10 */
+
+a img {
+    border: 0px;
+}
+
+::-moz-selection {
+    background-color: var(--avaya-blue);
+    color: #fff;
+}
+
+::selection {
+    background-color: var(--avaya-blue);
+    color: #fff;
+}
+
+.avaya-header .mdl-menu__container {
+    z-index: 50;
+    margin: 0 !important;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+.avaya-title {
+    color: black;
+    cursor: default;
+}
+
+.avaya-fab {
+    position: absolute;
+    right: 20%;
+    bottom: -26px;
+    z-index: 3;
+    background: #64ffda !important;
+    color: black !important;
+}
+
+.avaya-mobile-title {
+    display: none !important;
+}
+
+.avaya-logo-image {
+    height: 42px;
+    width: 160px;
+}
+
+.avaya-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: var(--avaya-darkblue);
+    height: 64px;
+}
+
+.avaya-content {
+    margin-top: 64px;
+}
+
+.avaya-header .material-icons {
+    color: white !important;
+}
+
+.avaya-header .mdl-layout__drawer-button {
+    background: transparent;
+    color: #767777;
+}
+
+.avaya-header .mdl-navigation__link {
+    color: #757575;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.avaya-interaction-state {
+    color: var(--avaya-blue);
+}
+
+.avaya-navigation-container {
+    /* Simple hack to make the overflow happen to the left instead... */
+    direction: rtl;
+    -webkit-order: 1;
+    -ms-flex-order: 1;
+    order: 1;
+    width: 500px;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.avaya-navigation {
+    /* ... and now make sure the content is actually LTR */
+    direction: ltr;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    width: 800px;
+}
+
+.avaya-navigation .mdl-navigation__link {
+    display: inline-block;
+    height: 60px;
+    line-height: 68px;
+    background-color: transparent !important;
+    border-bottom: 4px solid transparent;
+}
+
+.avaya-navigation .mdl-navigation__link:hover {
+    border-bottom: 4px solid var(--avaya-blue);
+}
+
+.avaya-more-button {
+    -webkit-order: 3;
+    -ms-flex-order: 3;
+    order: 3;
+}
+
+.avaya-drawer {
+    border-right: none;
+    background: var(--avaya-gradient);
+}
+
+.avaya-drawer-separator {
+    height: 1px;
+    background-color: #dcdcdc;
+    margin: 8px 0;
+}
+
+.avaya-drawer .mdl-navigation__link.mdl-navigation__link {
+    font-size: 14px;
+    color: black;
+}
+
+.avaya-drawer span.mdl-navigation__link.mdl-navigation__link {
+    color: white;
+}
+
+.avaya-drawer span.mdl-navigation__link.mdl-navigation__link:hover {
+    background-color: inherit;
+}
+
+.avaya-drawer .mdl-layout-title {
+    position: relative;
+    background: var(--avaya-darkblue);
+    height: 160px;
+}
+
+.avaya-drawer .avaya-logo-image {
+    position: absolute;
+    bottom: 16px;
+    height: 120px;
+}
+
+.avaya-be-together-section {
+    position: fixed;
+    top: 64px;
+    bottom: 10px;
+    width: 100%;
+    background: var(--avaya-gradient);
+}
+
+#VideoResolution {
+    display: none;
+}
+
+.avaya-video-resolution-area {
+    margin-top: 40px;
+}
+
+.avaya-video-resolution-area label {
+    font-size: 140%;
+}
+
+.avaya-video-resolution-area select {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.avaya-video-resolution-area select option {
+    color: white;
+    background-color: var(--avaya-darkblue);
+}
+
+.logo-font {
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    line-height: 1;
+    color: white;
+    font-weight: 500;
+}
+
+.avaya-slogan {
+    font-size: 60px;
+    padding-top: 55px;
+}
+
+.avaya-sub-slogan {
+    font-size: 21px;
+    padding-top: 24px;
+    padding-bottom: 10px;
+}
+
+.avaya-band-section {
+    position: relative;
+}
+
+.avaya-band {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    height: 80px;
+    background-color: var(--avaya-darkblue);
+}
+
+.avaya-band-text {
+    padding: 24px;
+    text-align: center;
+    color: white;
+}
+
+.avaya-wear-band-text p {
+    padding-top: 8px;
+}
+
+.avaya-link {
+    text-decoration: none;
+    color: var(--avaya-blue) !important;
+}
+
+.avaya-link:hover {
+    color: var(--avaya-blue) !important;
+}
+
+.avaya-link .material-icons {
+    position: relative;
+    top: -1px;
+    vertical-align: middle;
+}
+
+.avaya-alt-link {
+    text-decoration: none;
+    color: white !important;
+    font-size: 16px;
+}
+
+.avaya-alt-link:hover {
+    color: white !important;
+}
+
+.avaya-alt-link .material-icons {
+    position: relative;
+    top: 6px;
+}
+
+.avaya-customized-section {
+    text-align: center;
+}
+
+.avaya-customized-section-text {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 76px 16px 0 16px;
+}
+
+.avaya-customized-section-text p {
+    padding-top: 16px;
+}
+
+.avaya-footer {
+    background-color: #fafafa;
+    position: relative;
+}
+
+.avaya-link-menu:hover {
+    cursor: pointer;
+}
+
+.avaya-settings .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active {
+    color: rgba(255,255,255,255);
+}
+.avaya-settings .mdl-tabs__tab {   
+    font-size: 16px;   
+    color: rgba(255,255,255,.54);
+}
+.avaya-settings .mdl-textfield--floating-label.is-focused .mdl-textfield__label, 
+.avaya-settings .mdl-textfield--floating-label.is-dirty .mdl-textfield__label, 
+.avaya-settings .mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
+    color: #b08080;
+}
+.mdl-layout__header-row{
+    padding: 0 40px 0 40px;
+}
+
+.mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after {
+    height: 2px;
+    width: 100%;
+    display: block;
+    content: " ";
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    background: var(--avaya-blue);
+    -webkit-animation: border-expand .2s cubic-bezier(.4, 0, .4, 1).01s alternate forwards;
+    animation: border-expand .2s cubic-bezier(.4, 0, .4, 1).01s alternate forwards;
+    transition: all 1s cubic-bezier(.4, 0, 1, 1);
+}
+
+.mdl-tabs__tab .mdl-tabs__ripple-container .mdl-ripple {
+    background: var(--avaya-blue);
+}
+
+.mdl-button--raised {
+    background: rgba(255, 255, 255, .4);
+}
+
+.mdl-checkbox {
+    text-align: left;
+}
+
+.mdl-checkbox.is-checked .mdl-checkbox__box-outline {
+    border: 2px solid var(--avaya-blue);
+}
+
+.mdl-checkbox__ripple-container .mdl-ripple {
+    background: var(--avaya-blue);
+}
+
+.mdl-checkbox.is-checked .mdl-checkbox__tick-outline {
+    background: var(--avaya-blue) url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIgogICB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgdmVyc2lvbj0iMS4xIgogICB2aWV3Qm94PSIwIDAgMSAxIgogICBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWluWU1pbiBtZWV0Ij4KICA8cGF0aAogICAgIGQ9Ik0gMC4wNDAzODA1OSwwLjYyNjc3NjcgMC4xNDY0NDY2MSwwLjUyMDcxMDY4IDAuNDI5Mjg5MzIsMC44MDM1NTMzOSAwLjMyMzIyMzMsMC45MDk2MTk0MSB6IE0gMC4yMTcxNTcyOSwwLjgwMzU1MzM5IDAuODUzNTUzMzksMC4xNjcxNTcyOSAwLjk1OTYxOTQxLDAuMjczMjIzMyAwLjMyMzIyMzMsMC45MDk2MTk0MSB6IgogICAgIGlkPSJyZWN0Mzc4MCIKICAgICBzdHlsZT0iZmlsbDojZmZmZmZmO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lIiAvPgo8L3N2Zz4K")
+}
+
+.mdl-textfield__label {
+    color: #b08080;
+}
+
+.mdl-textfield__label:after {
+    background: var(--avaya-blue);
+}
+
+.mdl-textfield--floating-label.is-focused .mdl-textfield__label, .mdl-textfield--floating-label.is-dirty .mdl-textfield__label, .mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
+    color: black;
+}
+
+.mdl-textfield__input {
+    color: white;
+}
+
+.mdl-textfield__input>option {
+    background: var(--avaya-darkblue);
+}
+
+.mdl-navigation {
+    cursor: default;
+}
+
+.mdl-snackbar__action {
+    color: var(--avaya-blue);
+}
+
+.jsgrid-grid-header {
+    background-color: transparent;
+    overflow: auto;
+    border-color: black !important;
+}
+
+.jsgrid-nodata-row>.jsgrid-cell {
+    background: rgba(128, 128, 128, 0.2) !important;
+    border-color: black !important;
+}
+
+.jsgrid-header-row>.jsgrid-header-cell {
+    background-color: var(--avaya-darkblue);
+    border-color: black !important;
+}
+
+.jsgrid-insert-row>.jsgrid-cell, .jsgrid-edit-row>.jsgrid-cell {
+    border-color: black;
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+.jsgrid-insert-row>.jsgrid-cell>input[type=text], .jsgrid-edit-row>.jsgrid-cell>input[type=text] {
+    border-color: black;
+    background: rgba(255, 255, 255, 0.7) !important;
+}
+
+.jsgrid {
+    background: transparent;
+    color: white;
+}
+
+.jsgrid-grid-body {
+    overflow: auto;
+    border-color: black !important;
+}
+
+.jsgrid-alt-row>.jsgrid-cell {
+    background: transparent;
+    border-color: black !important;
+}
+
+.jsgrid-row>.jsgrid-cell {
+    background: transparent;
+    border-color: black !important;
+}
+
+.jsgrid-grid-body {
+    min-height: 250px;
+    max-height: 250px;
+}
+
+/**** Mobile layout ****/
+
+@media (max-width: 900px) {
+    .jsgrid-grid-body {
+        min-height: 350px;
+    }
+    .avaya-navigation-container {
+        display: block;
+    }
+    .avaya-title {
+        display: none !important;
+        color: black;
+    }
+    .avaya-mobile-title {
+        display: block !important;
+        position: absolute;
+        left: calc(50% - 70px);
+        top: 12px;
+        transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    /* WebViews in iOS 9 break the "~" operator, and WebViews in OS X 10.10 break
+     consecutive "+" operators in some cases. Therefore, we need to use both
+     here to cover all the bases. */
+    .avaya.avaya-search-box.is-focused~.avaya-mobile-title, .avaya-search-box.is-focused+.avaya-navigation-container+.avaya-mobile-title {
+        opacity: 0;
+    }
+    .avaya-more-button {
+        display: none;
+    }
+    .avaya-be-together-section {}
+    .avaya-slogan {
+        font-size: 24px;
+        margin: 0 16px;
+        padding-top: 24px;
+    }
+    .avaya-sub-slogan {
+        font-size: 16px;
+        margin: 0 16px;
+        padding-top: 8px;
+    }
+    .avaya-band-text {
+        margin-left: 0;
+        padding: 16px;
+        font-size: 4px !important;
+    }
+    .avaya-band-text .mdl-typography--headline {
+        margin-left: 0;
+        padding: 16px;
+        font-size: 16px;
+        line-height: 1em;
+    }
+    .avaya-footer {
+        display: none;
+    }
+}
+
+.footer--bold {
+    font-weight: 600;
+}
+
+.config-form__wrapper {
+    display: block;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.config-form {
+    display: inline-block;
+}
+
+.tf-block {
+    display: block !important;
+    width: 500px;
+    margin: 0 10px 0 10px;
+}
+
+.menu__active {
+    color: black !important;
+}
+
+.settingsButtons {
+    align-content: center;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.settings-btn {
+    min-width: 80px;
+    margin: 5px;
+}
+
+.save-btn {
+    color: var(--avaya-blue);
+}
+
+.settings-footer {
+    height: 1.5px;
+    background-color: var(--avaya-blue);
+    bottom: 0;
+}
+
+.click-to-call-btn {
+    display: none;
+    margin-top: 20px;
+}
+
+.client-state {
+    color: white;
+}
+
+.resolution-field {
+    color: white;
+}
+/* The Modal (background) */
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1000;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+/* Modal Content */
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+}
+.modal-content-chooser {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+}
+.modal-radio-label{
+    padding : 10px;
+    color: black;
+}
+.mdl-dialog {
+    border: none;
+    box-shadow: 0 9px 46px 8px rgba(0, 0, 0, 0.14), 0 11px 15px -7px rgba(0, 0, 0, 0.12), 0 24px 38px 3px rgba(0, 0, 0, 0.2);
+    width: 600px;
+}
+
+.mdl-dialog__title {
+    padding: 24px 24px 0;
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.mdl-dialog__actions {
+    padding: 8px 8px 8px 24px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row-reverse;
+    -ms-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.mdl-dialog__actions>* {
+    margin-right: 8px;
+    height: 36px;
+}
+
+.mdl-dialog__actions>*:first-child {
+    margin-right: 0;
+}
+
+.mdl-dialog__actions--full-width {
+    padding: 0 0 8px 0;
+}
+
+.mdl-dialog__actions--full-width>* {
+    height: 48px;
+    -webkit-flex: 0 0 100%;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    padding-right: 16px;
+    margin-right: 0;
+    text-align: right;
+}
+
+.mdl-dialog__content {
+    padding: 2px 4px 4px 4px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.demo-list-action {
+    width: 100%;
+}
+
+.stat-header {
+    /*   float: left; */
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.stat-key {
+    /*   float: left; */
+    color: black;
+}
+
+.stat-values {
+    color: black;
+    float: right;
+}
+.client-status{
+    margin-right: 10px;
+}
+.custom-dialog-content .mdl-layout__container {
+    position: relative;
+}
+
+.mdl-list__item {
+    height: 10px;
+    font-size: 14px;
+    min-height: 16px;
+}
+
+hr.style-line-seperator {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#close_button {
+    cursor: pointer;
+    float: right;
+}
+#close_button_platform_chooser {
+    cursor: pointer;
+    float: right;
+}
+.dialog-title {
+    font-size: 18px;
+    color: black;
+}
+
+.mdl-fab-bottom-right {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    transition: bottom .25s cubic-bezier(0, 0, .2, 1);
+}
+
+.mdl-button--fab-expandable, .mdl-button--fab-expandable * {
+    z-index: 1000
+}
+
+.mdl-button--fab-expandable.is-active>.mdl-fab-expandable--children {
+    display: block !important
+}
+
+.mdl-button--fab-expandable.bottom>.mdl-fab-expandable--children {
+    display: none;
+    position: absolute;
+    bottom: 56px;
+    left: 8px
+}
+
+.mdl-button--fab-expandable.top>.mdl-fab-expandable--children {
+    display: none;
+    position: absolute;
+    top: 56px;
+    left: 8px
+}
+
+.mdl-button--fab-expandable.bottom .mdl-fab-expandable--child {
+    position: relative;
+    margin-bottom: 16px
+}
+
+.mdl-button--fab-expandable.top .mdl-fab-expandable--child {
+    position: relative;
+    margin-top: 16px
+}
+
+.mdl-fab-expandable--children .mdl-fab-expandable--child-label {
+    min-width: 200px
+}
+
+.mdl-fab-expandable--child-label>* {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    background-color: #fff;
+    padding: 8px;
+    border-radius: 8px
+}
+
+.mdl-button--fab-expandable.left .mdl-fab-expandable--child-label {
+    position: absolute;
+    left: 48px;
+    top: 10px;
+    text-align: left
+}
+
+.mdl-button--fab-expandable.right .mdl-fab-expandable--child-label {
+    position: absolute;
+    right: 48px;
+    top: 10px;
+    text-align: right
+}
+
+mdl-button--colored {
+    color: #757575;
+}
+
+
+.mdl-button--fab.mdl-button--colored {
+    background: #293b47;
+    color: #fff;
+}
+.mdl-button--fab.mdl-button--mini-fab {
+    background: #da291c;
+    
+    background-color: #da291c;
+    color: #fff;
+}

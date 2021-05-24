@@ -1,0 +1,141 @@
+/**
+ * Copyright Avaya Inc.
+ * All rights reserved. Usage of this source is bound to the terms described in
+ * the file Avaya SDK EULA.pdf, included in this SDK.
+ * Avaya – Confidential & Proprietary. Use pursuant to your signed agreement or Avaya Policy.
+ */
+/* css for 'floating' webrtc voice caller UI element */
+
+#webrtc_voice_container {
+    display: none;
+    font-size: 16px;
+    line-height: 1.428571429;
+}
+
+.webrtc_float {
+    position: absolute;
+    z-index: 100;
+}
+
+#webrtc_draggable {
+    width: 540px;
+    height: 240px;
+    position: relative;
+    border: 0px;
+}
+
+#webrtc_call_quality {
+    position: relative;
+    height: 60px;
+    cursor: pointer;
+    float: right;
+}
+
+#webrtc_header_voice {
+    background-color: #293b47;
+    height: 60px;
+    color: white;
+}
+
+.webrtc_voice_header-content {
+    margin: 7px;
+    padding: 4px;
+    text-align: center;
+}
+.webrtc_voicebutton {
+    cursor: pointer;
+}
+/* DTMF keypad */
+.dtmf-wrapper{
+    width:200px;
+    height:200px;
+    position:absolute;
+    text-align:center;
+    margin-top: 5px;
+}
+
+.dtmf-interface{
+    display: none;
+    width:170px;
+    margin:0;
+    padding:0;
+    overflow:hidden;
+}
+
+.dtmf-interface li{
+    color: white;
+    background-color: #293b47;
+    float:left;
+    margin:1.5px;
+    list-style:none;
+    width:20px;
+    height:20px;
+    text-align:center;
+    line-height:20px;
+    font-size: 16px;
+    border: solid 1px #333;
+    border-radius:3px;
+    padding:10px;
+    transition: all 0.5s;
+}
+
+.dtmf-interface li:hover{
+    color: #3CD9FD;
+    border-color:#3CD9FD;
+    transition-duration:0s;
+    cursor:pointer;
+}
+
+.dtmf-interface li:active{
+    color: red;
+    border-color: red;
+    transition-duration:0s;
+}
+
+
+
+.webrtc_status_class{
+    padding-top: 10px;
+}
+
+.webrtc_duration_class{
+    margin-right: 10px;
+    float: left;
+    padding-top: 10px;
+}
+.voice_buttons {
+    float: right;
+}
+
+.webrtc_header-icon {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* css helper classes */
+
+.webrtc_remove-all-margin-padding {
+    margin: 0 ! important;
+    padding: 0 ! important;
+}
+/* color classes */
+
+.webrtc-red {
+    color: red;
+}
+
+.webrtc-yellow {
+    color: yellow;
+}
+
+.webrtc-green {
+    color: forestgreen;
+}
+
+.webrtc-silver {
+    color: silver;
+}
+
+.webrtc-white {
+    color: white;
+}
