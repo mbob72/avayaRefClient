@@ -111,6 +111,7 @@
         } else {
             console.error('Reference Client: error ending Video call');
             $.publish('ui.toast', [{ message: messageConfig.ErrorEndingVideoCall, timeout: 5000 }]);
+            $.publish('ui.video.close');
         }
     }
 
@@ -213,10 +214,11 @@
                 videoInteraction.addOnVideoInteractionEndedCallback(function () {
                     active = false;
                     console.info('Reference Client: INTERACTION_ENDED!!!');
+                    $.publish('ui.video.close');
+                    $.publish('timer.stop', []);
                     var state = webRTCCore.convertInteractionState(videoInteraction.getInteractionState());
                     $.publish('video.interaction.event.statechange', [{ state: state }]);
-                    $.publish('timer.stop', []);
-                    $.publish('ui.video.close');
+                    
                 });
                 videoInteraction.addOnVideoInteractionFailedCallback(function (data) {
                     active = false;

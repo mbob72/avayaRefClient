@@ -1,6 +1,6 @@
 //Home
 const ClientVersion = "Client Version: ";
-const version = "4.0.1.2";
+const version = "V_4.0.16_JSCSDK-4.8.0.11";
 const WebVoiceClickToCall = "Web Voice click to call";
 const VideoClickToCall = "Video click to call";
 const InvalidConfiguration = "Invalid configuration";

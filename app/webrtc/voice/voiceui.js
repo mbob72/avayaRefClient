@@ -10,22 +10,7 @@
  */
 (function (window, $) {
 
-    // add subscribers to listen for UI interactions
-    $.subscribe('ui.voice.buttonchange', function (event, data) {
-        if (data.active) {
-            voiceUi.deactivateButton(data.buttonId);
-        } else {
-            voiceUi.activateButton(data.buttonId);
-        }
-    });
 
-    $.subscribe('ui.voice.callQuality', function (event, data) {
-        videoUi.updateCallQuality(data);
-    });
-
-    $.subscribe('ui.voice.close', function () {
-        voiceUi.closeWindow()
-    });
 
 
     var voiceUi = {
@@ -37,6 +22,23 @@
          */
         openWindow: function (x, y) {
             voiceUi.initInterface();
+            // add subscribers to listen for UI interactions
+            $.subscribe('ui.voice.buttonchange', function (event, data) {
+                if (data.active) {
+                    voiceUi.deactivateButton(data.buttonId);
+                } else {
+                    voiceUi.activateButton(data.buttonId);
+                }
+            });
+
+            $.subscribe('ui.voice.callQuality', function (event, data) {
+                videoUi.updateCallQuality(data);
+            });
+
+            $.subscribe('ui.voice.close', function () {
+                voiceUi.closeWindow()
+            });
+
             var modal = document.getElementById("modalStats");
 
             $('#close_button').on('click', function () {

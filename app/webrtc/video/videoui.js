@@ -10,30 +10,6 @@
  */
 (function (window, $) {
 
-    // add subscribers to listen for UI interactions
-    $.subscribe('ui.video.buttonchange', function (event, data) {
-        if (data.active) {
-            videoUi.deactivateButton(data.buttonId);
-        } else {
-            videoUi.activateButton(data.buttonId);
-        }
-    });
-
-    $.subscribe('ui.video.update', function (event, data) {
-        if (data.enabled) {
-            videoUi.showRemoteVideo();
-        } else {
-            videoUi.hideRemoteVideo();
-        }
-    });
-
-    $.subscribe('ui.video.callQuality', function (event, data) {
-        videoUi.updateCallQuality(data);
-    });
-
-    $.subscribe('ui.video.close', function () {
-        videoUi.closeWindow()
-    });
 
 
 
@@ -46,6 +22,32 @@
          */
         openWindow: function (x, y) {
             videoUi.initInterface();
+
+            // add subscribers to listen for UI interactions
+            $.subscribe('ui.video.buttonchange', function (event, data) {
+                if (data.active) {
+                    videoUi.deactivateButton(data.buttonId);
+                } else {
+                    videoUi.activateButton(data.buttonId);
+                }
+            });
+
+            $.subscribe('ui.video.update', function (event, data) {
+                if (data.enabled) {
+                    videoUi.showRemoteVideo();
+                } else {
+                    videoUi.hideRemoteVideo();
+                }
+            });
+
+            $.subscribe('ui.video.callQuality', function (event, data) {
+                videoUi.updateCallQuality(data);
+            });
+
+            $.subscribe('ui.video.close', function () {
+                videoUi.closeWindow()
+            });
+
             var modal = document.getElementById("modalStats");
 
             $('#close_button').on('click', function () {
@@ -111,7 +113,7 @@
             $.subscribe('video.interaction.event.videoDetails', function (event, videoDetails) {
                 videoUi.updateVideoDetails(videoDetails);
             });
-            
+
             if (x < 140) {
                 x = 140;
             }
@@ -154,6 +156,8 @@
          */
         closeWindow: function () {
             // remove event handlers
+            console.debug('Close window');
+
             $('#webrtc_video_muteVideo').off();
             $('#webrtc_video_muteAudio').off();
             $('#webrtc_video_enableVideo').off();
@@ -223,7 +227,7 @@
         hideRemoteVideo: function () {
             $('#videoInbound').hide();
         },
-        updateCallQuality: function (data){
+        updateCallQuality: function (data) {
 
             if (data == OceanaCustomerWebVoiceVideo.Services.Devices.CallQuality.EXCELLENT) {
                 callQualityRatingResource = 'app/images/ic_networkquality_5.png';
@@ -238,7 +242,7 @@
             } else {
                 callQualityRatingResource = 'app/images/ic_networkquality_0.png';
             }
-            
+
             $('#img_callQuality').attr('src', callQualityRatingResource);
         },
         /**

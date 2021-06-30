@@ -56,6 +56,7 @@
         } else {
             console.error('Reference Client: error ending Web Voice call');
             $.publish('ui.toast', [{ message: messageConfig.ErrorEndingWebVoiceCall, timeout: 5000 }]);
+            $.publish('ui.video.close');
         }
     }
 
@@ -156,10 +157,11 @@
                 audioInteraction.addOnAudioInteractionEndedCallback(function () {
                     active = false;
                     console.info('Reference Client: INTERACTION_ENDED!!!');
-                    var state = webRTCCore.convertInteractionState(audioInteraction.getInteractionState());
-                    $.publish('voice.interaction.event.statechange', [{ state: state }]);
                     $.publish('timer.stop', []);
                     $.publish('ui.voice.close', []);
+                    var state = webRTCCore.convertInteractionState(audioInteraction.getInteractionState());
+                    $.publish('voice.interaction.event.statechange', [{ state: state }]);
+                   
                 });
                 audioInteraction.addOnAudioInteractionFailedCallback(function (data) {
                     active = false;
