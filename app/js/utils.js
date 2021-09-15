@@ -69,7 +69,7 @@ var utils = {
         } else {
             if (checkIfSafari())
                 return true;
-            return false;
+            return true;
         }
 
         function getBrowserInfo(userAgent) {
